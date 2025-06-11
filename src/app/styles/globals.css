@@ -20,7 +20,16 @@
 }
 
 body {
-  background: var(--background);
+  background: #f1f6fa;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* scrollni yashirish */
+.scroll-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
