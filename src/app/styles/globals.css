@@ -27,9 +27,161 @@ body {
 
 /* scrollni yashirish */
 .scroll-hidden {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
 }
+
 .scroll-hidden::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
+  /* Chrome, Safari */
+}
+
+.custom-dark-modal .ant-modal-content {
+  background-color: #1E1E2E;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.custom-dark-modal .ant-modal-header {
+  background-color: #1E1E2E;
+  border-bottom: none;
+}
+
+.custom-dark-modal .ant-modal-title {
+  color: white;
+}
+
+.custom-dark-modal .ant-input,
+.custom-dark-modal .ant-picker {
+  background-color: #2A2A3B;
+  border: 1px solid #444;
+  color: white;
+}
+
+.custom-dark-modal .ant-input::placeholder {
+  color: #999;
+}
+
+.custom-dark-modal .ant-btn-primary {
+  background-color: #00BFFF;
+  border-color: #00BFFF;
+}
+
+/* ==== DARK MODAL STYLING ==== */
+
+.custom-dark-modal .ant-modal-content {
+  background-color: #1B1C22;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.custom-dark-modal .ant-modal-header {
+  background-color: #1B1C22;
+  border-bottom: none;
+}
+
+.custom-dark-modal .ant-modal-title {
+  color: white;
+}
+
+.custom-dark-modal .ant-input,
+.custom-dark-modal .ant-picker,
+.custom-dark-modal .ant-input-textarea {
+  background-color: #2A2C34;
+  border: 1px solid #444;
+  color: white;
+}
+
+.custom-dark-modal .ant-input::placeholder,
+.custom-dark-modal .ant-picker-input input::placeholder {
+  color: #888;
+}
+
+/* ==== FIX TimePicker DROPDOWN PANEL ==== */
+.custom-dark-modal .ant-picker-panel {
+  background-color: #2A2C34 !important;
+  color: white;
+}
+
+.custom-dark-modal .ant-picker-time-panel-cell-inner {
+  color: white !important;
+  font-weight: 500;
+}
+
+.custom-dark-modal .ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+  background-color: #00BFFF !important;
+  color: white !important;
+  border-radius: 4px;
+}
+
+.custom-dark-modal .ant-picker-time-panel-cell:hover .ant-picker-time-panel-cell-inner {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+/* Scrollbars in TimePicker (optional but helpful) */
+.custom-dark-modal .ant-picker-time-panel-column {
+  scrollbar-width: thin;
+}
+
+.custom-dark-modal .ant-picker-time-panel-column::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-dark-modal .ant-picker-time-panel-column::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 6px;
+}
+
+/* ==== Upload button fix ==== */
+.custom-dark-modal .ant-upload.ant-upload-select-picture-card {
+  background-color: #2A2C34;
+  border: 1px dashed #555;
+  color: #ccc;
+}
+
+.custom-dark-modal .ant-upload.ant-upload-select-picture-card:hover {
+  border-color: #00BFFF;
+  color: #00BFFF;
+}
+
+/* ==== Button Styling ==== */
+.custom-dark-modal .ant-btn-primary {
+  background-color: #00BFFF;
+  border-color: #00BFFF;
+}
+
+.no-scrollbar {
+  /* Har doim ishlashi uchun */
+  overflow: auto;
+
+  /* Chrome, Edge, Safari uchun */
+  scrollbar-width: thin;
+  /* Firefox uchun */
+  scrollbar-color: #00BFFF transparent;
+}
+
+/* Chrome, Edge, Safari uchun custom */
+.no-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  /* Scrollbar eni */
+}
+
+.no-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  /* Orqa fon shaffof */
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: #00BFFF;
+  /* Scroll rangi */
+  border-radius: 10px;
+  /* Dumaloq qilib */
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00a6d6;
+  /* Hoverda biroz to‘q rang */
 }

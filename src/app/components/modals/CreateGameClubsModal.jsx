@@ -1,27 +1,15 @@
 import React, { useState } from "react";
-import { Modal, Input, TimePicker, Switch, Button, Upload } from "antd";
-import {
-  EnvironmentOutlined,
-  PlusOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
-import { FaUser, FaCrown, FaGem, FaWifi, FaSnowflake } from "react-icons/fa";
-
-import dayjs from "dayjs";
+import { Modal, Input, TimePicker, Button, Upload, message } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import "../../styles/globals.css"; // CSS shu yerda bo‘lishi kerak
 
 const CreateGameClubModal = ({ isModalOpen, handleOk, handleCancel }) => {
-  const [rates, setRates] = useState({
-    standard: false,
-    premium: false,
-    vip: false,
-  });
-
-  const [conveniences, setConveniences] = useState({
-    wifi: false,
-    ac: false,
-  });
-
   const [fileList, setFileList] = useState([]);
+  const [club, setClub] = useState("");
+  const [description, setDescription] = useState("");
+  const [branch, setBranch] = useState("");
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
 
   const handleChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -35,197 +23,111 @@ const CreateGameClubModal = ({ isModalOpen, handleOk, handleCancel }) => {
     return isImage || Upload.LIST_IGNORE;
   };
 
+  const handleSave = () => {
+    if (!club || !branch || !startTime || !endTime) {
+      message.error("Barcha maydonlarni to‘ldiring!");
+      return;
+    }
+
+    handleOk({
+      club,
+      description,
+      branch,
+      startTime,
+      endTime,
+      fileList,
+    });
+
+    // Reset
+    setClub("");
+    setDescription("");
+    setBranch("");
+    setStartTime(null);
+    setEndTime(null);
+    setFileList([]);
+  };
+
   return (
     <Modal
-      title={
-        <div className="text-lg font-bold text-gray-800">Create Game Club</div>
-      }
       open={isModalOpen}
-      onOk={handleOk}
       onCancel={handleCancel}
       footer={null}
-      closable={true}
-      modalRender={(modal) => (
-        <div className="bg-[#E6EDF5] rounded-xl">{modal}</div>
-      )}
+      closable
+      centered
+      width={480}
+      title={<div className="text-white text-lg font-semibold">Создать игроклуб</div>}
+      className="custom-dark-modal"
     >
-      <div className="space-y-4 px-1 pb-2 pt-4 ">
-        {/* overflow-y-auto h-[600px] scroll-hidden  */}
+      <div className="space-y-4">
+        {/* Upload Photo */}
+        <Upload
+          listType="picture-card"
+          fileList={fileList}
+          onChange={handleChange}
+          beforeUpload={beforeUpload}
+          multiple
+        >
+          {/* Rasm qo‘shish har doim ko‘rinadigan bo‘lsin */}
+          <div>
+            <PlusOutlined />
+            <div>Загрузить фото</div>
+          </div>
+        </Upload>
+
+        {/* Game Club Name */}
         <div>
-          <label className="block text-sm mb-1">Game Club Title</label>
-          <Input placeholder="Enter title" />
+          <label className="block text-sm text-white mb-1">Игроклуб</label>
+          <Input value={club} onChange={(e) => setClub(e.target.value)} placeholder="Trillon" />
         </div>
+
+        {/* Description */}
         <div>
-          <label className="block text-sm mb-1">Branch</label>
-          <Input placeholder="Enter branch" />
-        </div>
-        <div>
-          <label className="block text-sm mb-1">Location</label>
-          <Input
-            placeholder="Enter location"
-            prefix={<EnvironmentOutlined />}
+          <Input.TextArea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={3}
+            placeholder="Trillon"
           />
         </div>
+
+        {/* Branch */}
         <div>
-          <label className="block text-sm mb-1">Admin</label>
-          <Input placeholder="Enter admin name" />
-        </div>
-        <div>
-          <label className="block text-sm mb-1">Mobile Number</label>
-          <Input placeholder="Enter mobile number" />
+          <label className="block text-sm text-white mb-1">Филиал</label>
+          <Input value={branch} onChange={(e) => setBranch(e.target.value)} placeholder="Sergeli" />
         </div>
 
         {/* Working Hours */}
         <div>
-          <label className="block text-sm mb-1">Working Hours</label>
-          <div className="flex justify-between gap-2">
+          <label className="block text-sm text-white mb-1">График работы</label>
+          <div className="flex gap-2">
             <TimePicker
               use12Hours
               format="hh:mm a"
               className="w-1/2"
-              placeholder="Start time"
+              value={startTime}
+              onChange={(val) => setStartTime(val)}
+              placeholder="Start"
             />
             <TimePicker
               use12Hours
               format="hh:mm a"
               className="w-1/2"
-              placeholder="End time"
+              value={endTime}
+              onChange={(val) => setEndTime(val)}
+              placeholder="End"
             />
           </div>
         </div>
 
-        <div className="bg-[#f4f7fb] p-3 rounded-xl space-y-3">
-          <div className="text-sm font-medium mb-1">Rates</div>
-
-          <div className="bg-white rounded-xl p-3 flex justify-between items-start">
-            <div className="flex items-start gap-2 text-sm">
-              <FaUser size={18} className="mt-1" />
-              <div>
-                <b>Standart</b>
-                <br />
-                Oddiy o‘yin uchun yetarli
-              </div>
-            </div>
-            <Switch
-              checked={rates.standard}
-              onChange={(val) => setRates({ ...rates, standard: val })}
-            />
-          </div>
-
-          <div className="bg-white rounded-xl p-3 flex justify-between items-start">
-            <div className="flex items-start gap-2 text-sm">
-              <FaGem size={18} className="mt-1" />
-              <div>
-                <b>Premium</b>
-                <br />
-                Tezroq, yorqinroq, ko‘proq vaqt
-              </div>
-            </div>
-            <Switch
-              checked={rates.premium}
-              onChange={(val) => setRates({ ...rates, premium: val })}
-            />
-          </div>
-
-          <div className="bg-white rounded-xl p-3 flex justify-between items-start opacity-50">
-            <div className="flex items-start gap-2 text-sm">
-              <FaCrown size={18} className="mt-1" />
-              <div>
-                <b>VIP</b>
-                <br />
-                Chiroyli va shaxsiy o‘yin
-              </div>
-            </div>
-            <Switch checked={false} disabled />
-          </div>
+        {/* Footer Buttons */}
+        <div className="flex justify-between mt-6">
+          <Button style={{ width: "48%" }} onClick={handleCancel}>
+            Отмена
+          </Button>
+          <Button type="primary" style={{ width: "48%" }} onClick={handleSave}>
+            Сохранить
+          </Button>
         </div>
-
-        {/* Conveniences */}
-        <div className="bg-[#f4f7fb] p-3 rounded-xl space-y-3 mt-4">
-          <div className="text-sm font-medium mb-1">Conveniences</div>
-
-          <div className="bg-white rounded-xl p-3 flex justify-between items-start">
-            <div className="flex items-start gap-2 text-sm">
-              <FaWifi size={18} className="mt-1" />
-              <div>
-                <b>Free WiFi zona</b>
-                <br />
-                O‘yinlar davomida ham doimo onlayn
-              </div>
-            </div>
-            <Switch
-              checked={conveniences.wifi}
-              onChange={(val) =>
-                setConveniences({ ...conveniences, wifi: val })
-              }
-            />
-          </div>
-
-          <div className="bg-white rounded-xl p-3 flex justify-between items-start">
-            <div className="flex items-start gap-2 text-sm">
-              <FaSnowflake size={18} className="mt-1" />
-              <div>
-                <b>Air Conditioner</b>
-                <br />
-                Har bir nafasda salqinlik
-              </div>
-            </div>
-            <Switch
-              checked={conveniences.ac}
-              onChange={(val) => setConveniences({ ...conveniences, ac: val })}
-            />
-          </div>
-        </div>
-
-        {/* Photo Upload */}
-        <div className="bg-[#f4f7fb] p-3 rounded-xl mt-4">
-          <div className="text-sm font-medium mb-1">Download Photo</div>
-          <Upload
-            listType="picture-card"
-            fileList={fileList}
-            onChange={handleChange}
-            beforeUpload={beforeUpload}
-            multiple
-          >
-            {fileList.length >= 8 ? null : (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Rasm qo'shish</div>
-              </div>
-            )}
-          </Upload>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-4 flex items-center justify-between border-t pt-4">
-        <Button
-          style={{
-            width: "147px",
-            height: "40px",
-          }}
-        >
-          Block
-        </Button>
-        <Button
-          style={{
-            width: "147px",
-            height: "40px",
-          }}
-          danger
-        >
-          Delete
-        </Button>
-        <Button
-          style={{
-            width: "147px",
-            height: "40px",
-          }}
-          type="primary"
-          onClick={handleOk}
-        >
-          Save
-        </Button>
       </div>
     </Modal>
   );

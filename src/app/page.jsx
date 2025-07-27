@@ -43,7 +43,7 @@ function Dashboard() {
   const stats = [
     { label: "Tashriflar soni", value: 24113, color: "#00D6C6" },
     { label: "Aktiv foydalanuvchilar", value: 2318, color: "#3D7BFF" },
-    { label: "Yangi foydalanuvchilar", value: 21795, color: "#1E1E2D" },
+    { label: "Yangi foydalanuvchilar", value: 21795, color: "#FFD700" },
   ];
 
   const lineData = {
@@ -65,8 +65,8 @@ function Dashboard() {
       {
         label: "Aktiv",
         data: [50, 80, 60, 90, 120, 100, 130, 150, 140, 110, 100, 70],
-        borderColor: "#1E1E2D",
-        backgroundColor: "rgba(30, 30, 45, 0.1)",
+        borderColor: "#00D6C6",
+        backgroundColor: "rgba(0, 214, 198, 0.2)",
         fill: true,
         tension: 0.4,
       },
@@ -74,7 +74,7 @@ function Dashboard() {
         label: "Yangi",
         data: [40, 70, 50, 85, 110, 95, 120, 140, 130, 105, 90, 60],
         borderColor: "#3D7BFF",
-        backgroundColor: "rgba(61, 123, 255, 0.1)",
+        backgroundColor: "rgba(61, 123, 255, 0.2)",
         fill: true,
         tension: 0.4,
       },
@@ -107,7 +107,7 @@ function Dashboard() {
       },
       {
         label: "Aktiv",
-        backgroundColor: "#C4C4C4",
+        backgroundColor: "#555",
         data: [900, 950, 1000, 1050, 1100, 1000, 950, 900, 880, 890, 920, 940],
       },
     ],
@@ -118,7 +118,7 @@ function Dashboard() {
     datasets: [
       {
         data: [2318, 21795],
-        backgroundColor: ["#3D7BFF", "#1E1E2D"],
+        backgroundColor: ["#3D7BFF", "#FFD700"],
         borderWidth: 0,
       },
     ],
@@ -126,36 +126,48 @@ function Dashboard() {
 
   return (
     <div
-      className=" overflow-y-auto h-[650px] scroll-hidden"
+      className="overflow-y-auto h-[650px] scroll-hidden"
       style={{
         fontFamily: "sans-serif",
         maxWidth: "1200px",
         margin: "0 auto",
         borderRadius: "10px 10px 0px 0px",
+        color: "#f0f0f0",
       }}
     >
-      <h2 style={{ fontWeight: "600", fontSize: "1.5rem", color: "#333" }}>
+      <h2 style={{ fontWeight: "600", fontSize: "1.5rem", color: "#fff" }}>
         Dashboard
       </h2>
       <div className="flex gap-4 mb-6">
         <div className="flex flex-col">
-          <label className="text-sm mb-1">Year</label>
+          <label className="text-sm mb-1 text-white">Year</label>
           <DatePicker
             picker="year"
-            className="w-40"
-            defaultValue={dayjs()} // endi bu muammo bermaydi
+            className="w-40 bg-[#1E1E2D] text-white placeholder-gray-400"
+            style={{
+              backgroundColor: "#1E1E2D",
+              color: "#fff",
+              border: "1px solid #444",
+            }}
+            defaultValue={dayjs()}
             allowClear={false}
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-sm mb-1">Day</label>
+          <label className="text-sm mb-1 text-white">Day</label>
           <DatePicker
-            className="w-40"
+            className="w-40 bg-[#1E1E2D] text-white placeholder-gray-400"
+            style={{
+              backgroundColor: "#1E1E2D",
+              color: "#fff",
+              border: "1px solid #444",
+            }}
             defaultValue={dayjs()}
             allowClear={false}
           />
         </div>
       </div>
+
 
       <div style={{ display: "flex", gap: "1rem" }}>
         <div style={{ display: "flex", gap: "1rem", flex: 1 }}>
@@ -163,12 +175,12 @@ function Dashboard() {
             <div
               key={idx}
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#1E1E2D",
                 padding: "1rem",
                 borderRadius: "10px",
                 textAlign: "center",
                 width: "100%",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
               }}
             >
               <svg width="100%" height="100" viewBox="0 0 100 100">
@@ -176,7 +188,7 @@ function Dashboard() {
                   cx="50"
                   cy="50"
                   r="45"
-                  stroke="#eee"
+                  stroke="#333"
                   strokeWidth="10"
                   fill="none"
                 />
@@ -200,7 +212,7 @@ function Dashboard() {
               >
                 {item.value.toLocaleString("uz-UZ")}
               </div>
-              <div style={{ color: "#888", marginTop: "0.3rem" }}>
+              <div style={{ color: "#bbb", marginTop: "0.3rem" }}>
                 {item.label}
               </div>
             </div>
@@ -209,17 +221,21 @@ function Dashboard() {
         <div
           style={{
             flex: 1,
-            backgroundColor: "white",
+            backgroundColor: "#1E1E2D",
             padding: "1rem",
             borderRadius: "10px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
           }}
         >
           <Line
             data={lineData}
             options={{
               responsive: true,
-              plugins: { legend: { display: true, position: "top" } },
+              plugins: { legend: { display: true, position: "top", labels: { color: "#ddd" } } },
+              scales: {
+                x: { ticks: { color: "#bbb" }, grid: { color: "#333" } },
+                y: { ticks: { color: "#bbb" }, grid: { color: "#333" } },
+              },
               maintainAspectRatio: false,
             }}
             height={200}
@@ -231,17 +247,21 @@ function Dashboard() {
         <div
           style={{
             flex: 1,
-            backgroundColor: "white",
+            backgroundColor: "#1E1E2D",
             padding: "1rem",
             borderRadius: "10px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
           }}
         >
           <Bar
             data={barData}
             options={{
               responsive: true,
-              plugins: { legend: { position: "bottom" } },
+              plugins: { legend: { position: "bottom", labels: { color: "#ddd" } } },
+              scales: {
+                x: { ticks: { color: "#bbb" }, grid: { color: "#333" } },
+                y: { ticks: { color: "#bbb" }, grid: { color: "#333" } },
+              },
               maintainAspectRatio: false,
             }}
             height={250}
@@ -250,10 +270,10 @@ function Dashboard() {
         <div
           style={{
             flex: 1,
-            backgroundColor: "white",
+            backgroundColor: "#1E1E2D",
             padding: "1rem",
             borderRadius: "10px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -264,7 +284,7 @@ function Dashboard() {
               data={doughnutData}
               options={{
                 responsive: true,
-                plugins: { legend: { position: "right" } },
+                plugins: { legend: { position: "right", labels: { color: "#ddd" } } },
               }}
             />
           </div>

@@ -30,26 +30,26 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const menuItems = [
-    { label: "Dashboard", icon: <MdDashboard size={20} />, href: "/" },
-    { label: "Schedules", icon: <MdDateRange size={20} />, href: "/schedules" },
-    { label: "Booking", icon: <MdEditCalendar size={20} />, href: "/booking" },
+    { label: "Панель", icon: <MdDashboard size={20} />, href: "/" },
+    { label: "График", icon: <MdDateRange size={20} />, href: "/schedules" },
+    { label: "Бронирование", icon: <MdEditCalendar size={20} />, href: "/booking" },
     {
-      label: "Game Clubs",
+      label: "Игроклубы",
       icon: <MdSportsEsports size={20} />,
       href: "/game-clubs",
     },
     {
-      label: "Club Account",
+      label: "Статистика",
       icon: <MdAccountBalance size={20} />,
       href: "/club-account",
-    },
-    { label: "Statistic", icon: <MdBarChart size={20} />, href: "/statistic" },
-    { label: "Tariffs", icon: <MdPriceChange size={20} />, href: "/tariffs" },
-    { label: "Settings", icon: <MdSettings size={20} />, href: "/settings" },
+    }
   ];
 
   return (
-    <div className="w-60 h-screen bg-white flex flex-col justify-between ">
+    <div style={{
+      color: "white",
+      borderRadius: "0px 10px 10px 0px"
+    }} className="w-60 h-screen bg-[#0F0F1A] text-white flex flex-col justify-between ">
       {/* Logo */}
       <div>
         <div className="px-6 py-6">
@@ -69,11 +69,10 @@ export default function Sidebar() {
                 key={item.label}
                 onClick={() => router.push(item.href)}
                 style={{ borderRadius: "10px 0px 0px 10px" }}
-                className={`flex items-center gap-3 text-sm px-4 py-3 cursor-pointer transition-all duration-200 ${
-                  isActive
-                    ? "bg-[#f1f6fa] text-blue-600 font-semibold"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
+                className={`flex items-center gap-3 text-sm px-4 py-3 cursor-pointer transition-all duration-200 ${isActive
+                  ? "bg-[#141421] text-blue-600 font-semibold"
+                  : "text-gray-300 hover:bg-gray-700"
+                  }`}
               >
                 <span className="text-xl">{item.icon}</span>
                 <span>{item.label}</span>
